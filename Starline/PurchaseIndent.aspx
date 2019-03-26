@@ -1,0 +1,128 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Starline.Master" AutoEventWireup="true" CodeBehind="PurchaseIndent.aspx.cs" Inherits="Starline.WebForm20" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+   
+    <section id="main-content" style="background-color: white;">
+        
+                <section class="wrapper">
+                    <div class="container" style="width: 695px;">
+                        <div class="header">
+                            <h3 style="color: mediumslateblue; padding: 7px; margin-top: -9px; font-size: 17px;">PURCHASE INDENT</h3>
+                        </div>
+                        <div class="row" style="margin-top: 25px; margin-left: -15px;">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <asp:Label ID="Label1" Text="PURCHASE INDENTID" runat="server" />
+                                    <asp:TextBox ID="txtid" Style="width: 325px;" ReadOnly="true" CssClass="form-control" BackColor="Transparent" required="Required" runat="server" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <asp:Label ID="Label2" Text="DATE" runat="server" />
+                                    <asp:TextBox ID="txtdate" Style="width: 325px;" ReadOnly="true" PLACEHOLDER="Enter date" CssClass="form-control" BackColor="Transparent" required="Required" runat="server" />
+
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <asp:Label ID="Label3" Text="EMPLOYEE NAME" runat="server" />
+                                    <asp:TextBox ID="txtemployeename" Style="width: 325px;" placeholder="Enter employee name" CssClass="form-control" BackColor="Transparent" required="Required" runat="server" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <asp:Label ID="Label4" Text="CATEGORY" runat="server" />
+                                    <asp:DropDownList runat="server" AutoPostBack="true" ID="ddlcategory" Style="width: 325px;" CssClass="form-control" BackColor="Transparent" OnSelectedIndexChanged="ddlcategory_SelectedIndexChanged">
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <asp:Label ID="Label6" Text="MATERIAL CODE" runat="server" />
+                                    <asp:DropDownList runat="server" ID="ddlmaterialcode" Style="width: 325px;" BackColor="Transparent" CssClass="form-control" required="Required">
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <asp:Label ID="Label7" Text="REQUIRED QUANTITY" runat="server" />
+                                    <asp:TextBox ID="txtrequiredquantity" Style="width: 325px;" placeholder="Enter required quantity" BackColor="Transparent" CssClass="form-control" required="Required" runat="server" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <asp:Label ID="Label8" Text="REQUIRED DATE" runat="server" />
+                                    <asp:TextBox ID="txtrequireddate" Style="width: 325px;" placeholder="Enter required date" BackColor="Transparent" CssClass="form-control" TextMode="Date" required="Required" runat="server" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6" style="margin-left: 300px">
+                                <div class="form-group">
+                                    <asp:Button ID="btnadd" Text="Add" CssClass="btn btn-success col-sm-4" runat="server" OnClick="btnadd_Click" />
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <asp:GridView ID="gvradd" runat="server" ClientIDMode="Static" AutoGenerateDeleteButton="True" OnRowDeleting="gvradd_RowDeleting"></asp:GridView>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6" style="margin-left: 300px">
+
+                                <asp:Button ID="btnsubmit" runat="server" UseSubmitBehavior="false" Text="Button" Visible="false" OnClick="btnsubmit_Click" CssClass="btn btn-success col-sm-4" />
+
+                            </div>
+                        </div>
+                    </div>
+        <div class="container-fluid">
+            <div class="row col-lg-offset-1" style="width: 800px;">
+                <div class="col-sm-6" style="margin-left: 617px;">
+                    <div class="form-group">
+                        <asp:Button ID="Button1" Text="ExporttoExcel" CssClass="btn btn-primary" runat="server" UseSubmitBehavior="false" OnClick="Button1_Click" />
+                    </div>
+                </div>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:starlinepackersConnectionString %>" SelectCommand="SELECT * FROM [EnquiryList]"></asp:SqlDataSource>
+                <asp:GridView ID="GridView1" runat="server" ClientIDMode="Static" HeaderStyle-HorizontalAlign="Center" HeaderStyle-BackColor="YellowGreen" RowStyle-BackColor="WhiteSmoke" HeaderStyle-Width="300px" HeaderStyle-Height="40px" RowStyle-Height="40px" RowStyle-HorizontalAlign="Center" AutoGenerateColumns="false" DataKeyNames="Id" DataSourceID="SqlDataSource1">
+                    <Columns>
+                        <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                        <asp:BoundField DataField="EnquiryId" HeaderText="EnquiryId" SortExpression="EnquiryId" />
+                        <asp:BoundField DataField="MaterialName" HeaderText="MaterialName" SortExpression="MaterialName" />
+                        <asp:BoundField DataField="Weight" HeaderText="Weight" SortExpression="Weight" />
+                        <asp:BoundField DataField="RequiredDate" HeaderText="RequiredDate" SortExpression="RequiredDate" />
+                        <asp:BoundField DataField="Category" HeaderText="Category" SortExpression="Category" />
+                    </Columns>
+                </asp:GridView>
+                <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" />
+                <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+                <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.bootstrap.min.css" />
+                <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+                <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
+                <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>
+                <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+                <script type="text/javascript">
+                    $(function () {
+                        $('[id*=GridView1]').prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
+                            "responsive": true,
+                            "sPaginationType": "full_numbers"
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+        </div>
+    </section>
+    </section>
+       
+   
+</asp:Content>
